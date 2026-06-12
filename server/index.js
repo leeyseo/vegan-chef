@@ -330,6 +330,154 @@ app.post("/api/analyze", rateLimit, async (req, res) => {
   }
 });
 
+// 스트리밍 분석 — 진행 상황(인식 재료, 레시피 생성 수, 진행률)을 SSE로 실시간 전송.
+// 모델 출력 토큰을 흘려보내면서, 누적 JSON에서 재료 이름과 레시피 수를 추출해 알린다.
+app.post("/api/analyze/stream", rateLimit, async (req, res) => {
+  if (!apiKey) {
+    return res
+      .status(500)
+      .json({ error: "서버에 ANTHROPIC_API_KEY 가 설정되지 않았습니다." });
+  }
+  const { imageBase64, mediaType } = req.body ?? {};
+  if (!imageBase64) {
+    return res.status(400).json({ error: "이미지가 전달되지 않았습니다." });
+  }
+
+  res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-transform");
+  res.setHeader("Connection", "keep-alive");
+  res.setHeader("X-Accel-Buffering", "no");
+  res.flushHeaders?.();
+
+  const send = (event, data) => {
+    res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+  };
+
+  let aborted = false;
+  req.on("close", () => {
+    aborted = true;
+  });
+
+  try {
+    const stream = client.messages.stream({
+      model: MODEL,
+      max_tokens: MAX_OUTPUT_TOKENS,
+      system: SYSTEM_PROMPT,
+      output_config: {
+        format: { type: "json_schema", schema: RECIPE_SCHEMA },
+      },
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "image",
+              source: {
+                type: "base64",
+                media_type: mediaType || "image/jpeg",
+                data: imageBase64,
+              },
+            },
+            {
+              type: "text",
+              text: "이 사진을 분석해 식물성 재료를 파악하고, 동물성 재료 없이 만들 수 있는 비건 레시피를 4개 추천해줘.",
+            },
+          ],
+        },
+      ],
+    });
+
+    let full = "";
+    let lastEmit = 0;
+    let lastRecipes = -1;
+    const sentNames = new Set();
+
+    stream.on("text", (delta) => {
+      if (aborted) return;
+      full += delta;
+
+      // 스키마 순서상 ingredients가 recipes보다 먼저 나온다.
+      const recipesIdx = full.indexOf('"recipes"');
+      const ingPart = recipesIdx >= 0 ? full.slice(0, recipesIdx) : full;
+
+      const newIngredients = [];
+      const nameRe = /"name"\s*:\s*"([^"]{1,40})"/g;
+      let m;
+      while ((m = nameRe.exec(ingPart)) !== null) {
+        const n = m[1];
+        if (!sentNames.has(n)) {
+          sentNames.add(n);
+          newIngredients.push(n);
+        }
+      }
+
+      let recipesDone = 0;
+      if (recipesIdx >= 0) {
+        const recPart = full.slice(recipesIdx + 9);
+        const rre = /"name"\s*:\s*"/g;
+        while (rre.exec(recPart) !== null) recipesDone++;
+      }
+
+      const stage =
+        recipesIdx >= 0
+          ? recipesDone > 0
+            ? "recipes"
+            : "filter"
+          : "ingredients";
+      const percent = Math.min(95, Math.round((full.length / 8000) * 100));
+
+      const now = Date.now();
+      if (
+        newIngredients.length ||
+        recipesDone !== lastRecipes ||
+        now - lastEmit > 150
+      ) {
+        lastRecipes = recipesDone;
+        lastEmit = now;
+        send("progress", { percent, stage, newIngredients, recipesDone });
+      }
+    });
+
+    const finalMsg = await stream.finalMessage();
+
+    if (finalMsg.stop_reason === "refusal") {
+      send("error", { error: "이미지를 분석할 수 없는 요청입니다." });
+      return res.end();
+    }
+    if (finalMsg.stop_reason === "max_tokens") {
+      send("error", {
+        error: "결과가 너무 길어 일부가 잘렸어요. 다시 시도해 주세요.",
+      });
+      return res.end();
+    }
+    const textBlock = finalMsg.content.find((b) => b.type === "text");
+    if (!textBlock) {
+      send("error", { error: "모델 응답이 비어 있습니다." });
+      return res.end();
+    }
+
+    const data = JSON.parse(textBlock.text);
+    send("progress", {
+      percent: 99,
+      stage: "finalizing",
+      newIngredients: [],
+      recipesDone: data.recipes?.length ?? 0,
+    });
+    send("done", data);
+    res.end();
+  } catch (err) {
+    console.error("[/api/analyze/stream] 오류:", err);
+    if (!res.headersSent) {
+      res
+        .status(err?.status ?? 500)
+        .json({ error: err?.message ?? "분석 중 오류가 발생했습니다." });
+    } else {
+      send("error", { error: err?.message ?? "분석 중 오류가 발생했습니다." });
+      res.end();
+    }
+  }
+});
+
 // ── 프로덕션: 빌드된 프런트엔드(dist)를 함께 서빙 ──
 // 단일 서비스로 배포 가능. SPA 라우팅(/scan, /recipes/:id 새로고침)을 위해
 // API가 아닌 GET 요청은 index.html로 폴백한다.

@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../components/Icon";
 import { processImage } from "../lib/image";
-import { analyzeFridge } from "../lib/api";
+import { analyzeFridgeStream } from "../lib/api";
+import type { AnalyzeStage } from "../lib/api";
 import { useAnalysis } from "../state/AnalysisContext";
 import type { AnalysisResult, Freshness } from "../types";
 
@@ -32,6 +33,21 @@ const FRESH_STYLE: Record<Freshness, string> = {
   낮음: "bg-error-container text-on-error-container",
 };
 
+function stageLabel(stage: AnalyzeStage, recipesDone: number): string {
+  switch (stage) {
+    case "ingredients":
+      return "식재료 인식 중…";
+    case "filter":
+      return "동물성 재료 필터링 중…";
+    case "recipes":
+      return `비건 레시피 생성 중… ${recipesDone}/4`;
+    case "finalizing":
+      return "마무리 중…";
+    default:
+      return "분석 중…";
+  }
+}
+
 export function Scan() {
   const navigate = useNavigate();
   const { setResult: storeResult, setPreview: storePreview } = useAnalysis();
@@ -44,6 +60,12 @@ export function Scan() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);
+
+  // 실시간 진행 상태
+  const [percent, setPercent] = useState(0);
+  const [stage, setStage] = useState<AnalyzeStage>("ingredients");
+  const [recipesDone, setRecipesDone] = useState(0);
+  const [liveIngredients, setLiveIngredients] = useState<string[]>([]);
 
   async function handleFile(file: File | undefined) {
     if (!file) return;
@@ -63,16 +85,32 @@ export function Scan() {
     setLoading(true);
     setError(null);
     setResult(null);
-    try {
-      const data = await analyzeFridge(payload);
-      setResult(data);
-      storeResult(data);
-      storePreview(preview);
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setLoading(false);
-    }
+    setPercent(0);
+    setStage("ingredients");
+    setRecipesDone(0);
+    setLiveIngredients([]);
+
+    await analyzeFridgeStream(payload, {
+      onProgress: (p) => {
+        setPercent(p.percent);
+        setStage(p.stage);
+        setRecipesDone(p.recipesDone);
+        if (p.newIngredients.length) {
+          setLiveIngredients((prev) => [...prev, ...p.newIngredients]);
+        }
+      },
+      onDone: (data) => {
+        setPercent(100);
+        setResult(data);
+        storeResult(data);
+        storePreview(preview);
+        setLoading(false);
+      },
+      onError: (msg) => {
+        setError(msg);
+        setLoading(false);
+      },
+    });
   }
 
   function reset() {
@@ -80,6 +118,7 @@ export function Scan() {
     setPayload(null);
     setResult(null);
     setError(null);
+    setLiveIngredients([]);
     if (inputRef.current) inputRef.current.value = "";
   }
 
@@ -120,37 +159,42 @@ export function Scan() {
               src={preview}
               alt="올린 냉장고 사진"
               className={`w-full h-full object-cover transition-opacity duration-500 ${
-                loading ? "opacity-50" : "opacity-100"
+                loading ? "opacity-60" : "opacity-100"
               }`}
             />
 
-            {/* 분석 중 오버레이 */}
+            {/* 분석 중 — 스캔 라인 + 실시간 진행 패널 */}
             {loading && (
               <>
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-surface/80 backdrop-blur-sm pointer-events-none">
-                  <Icon name="sync" className="text-display-lg text-primary animate-spin mb-4" />
-                  <h2 className="font-headline-md text-headline-md text-primary mb-2">
-                    비건 식재료 정밀 분석 중...
-                  </h2>
-                  <div className="flex items-center gap-2 bg-tertiary px-4 py-2 rounded-full mt-4">
-                    <Icon name="filter_alt" className="text-on-tertiary text-sm" />
-                    <span className="font-label-md text-label-md text-on-tertiary">
-                      동물성 재료 필터링 활성화됨
+                <div className="scanning-line" />
+                <div className="absolute bottom-0 inset-x-0 p-4 pt-10 bg-gradient-to-t from-on-surface/90 via-on-surface/60 to-transparent z-20 text-surface-container-lowest">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon name="sync" className="text-[18px] animate-spin" />
+                    <span className="font-label-md text-label-md">
+                      {stageLabel(stage, recipesDone)}
+                    </span>
+                    <span className="ml-auto font-caption text-caption tabular-nums">
+                      {percent}%
                     </span>
                   </div>
+                  <div className="h-1.5 w-full bg-surface-container-lowest/25 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-secondary-fixed-dim rounded-full transition-all duration-300 ease-out"
+                      style={{ width: `${percent}%` }}
+                    />
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-2 font-caption text-caption opacity-80">
+                    <Icon name="filter_alt" className="text-[14px]" />
+                    동물성 재료 필터링 활성화됨
+                  </div>
                 </div>
-                <div className="scanning-line" />
               </>
             )}
 
-            {/* 인식 바운딩 박스 */}
+            {/* 인식 바운딩 박스 (결과) */}
             {result &&
               boxes.map((ing, i) => (
-                <div
-                  key={ing.name}
-                  className="bounding-box"
-                  style={BOX_PRESETS[i]}
-                >
+                <div key={ing.name} className="bounding-box" style={BOX_PRESETS[i]}>
                   <div className="absolute -top-8 left-0 bg-primary text-on-primary font-caption text-caption px-2 py-1 rounded-md whitespace-nowrap">
                     {ing.name} {confidence(ing.name)}%
                   </div>
@@ -179,10 +223,10 @@ export function Scan() {
         )}
       </section>
 
-      {/* 결과 사이드바 */}
+      {/* 결과 / 실시간 사이드바 */}
       <aside
         className={`w-full lg:w-[400px] flex flex-col gap-6 bg-surface-container-lowest rounded-xl border border-outline-variant p-6 transition-opacity duration-500 ${
-          result ? "opacity-100" : "opacity-60"
+          result || loading ? "opacity-100" : "opacity-60"
         }`}
       >
         <div>
@@ -192,6 +236,8 @@ export function Scan() {
           <p className="font-body-md text-body-md text-on-surface-variant">
             {result
               ? `냉장고에서 ${result.ingredients.length}개의 식물성 재료를 찾았습니다.`
+              : loading
+              ? "실시간으로 비건 재료를 인식하고 있어요…"
               : "사진을 분석하면 식별된 비건 재료가 여기에 표시됩니다."}
           </p>
         </div>
@@ -209,7 +255,7 @@ export function Scan() {
               <div
                 key={ing.name}
                 className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg border border-transparent hover:border-outline-variant transition-colors animate-lockin"
-                style={{ animationDelay: `${i * 50}ms` }}
+                style={{ animationDelay: `${i * 40}ms` }}
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
@@ -231,6 +277,30 @@ export function Scan() {
                 </span>
               </div>
             ))
+          ) : loading ? (
+            // 실시간 인식 — 재료 이름이 스트리밍될 때마다 lock-on
+            <div className="space-y-2">
+              {liveIngredients.length === 0 && (
+                <p className="font-caption text-caption text-on-surface-variant">
+                  재료를 찾는 중…
+                </p>
+              )}
+              {liveIngredients.map((name, i) => (
+                <div
+                  key={`${name}-${i}`}
+                  className="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg animate-lockin"
+                >
+                  <span className="w-2.5 h-2.5 rounded-full bg-secondary shrink-0 shadow-[0_0_8px_rgba(40,107,51,0.6)]" />
+                  <span className="font-label-md text-label-md text-on-surface">
+                    {name}
+                  </span>
+                  <Icon
+                    name="check"
+                    className="ml-auto text-secondary text-[18px]"
+                  />
+                </div>
+              ))}
+            </div>
           ) : (
             // 분석 전 플레이스홀더
             <div className="space-y-4">
@@ -249,6 +319,15 @@ export function Scan() {
             </div>
           )}
         </div>
+
+        {loading && (
+          <div className="w-full bg-surface-container-high rounded-full h-2 overflow-hidden">
+            <div
+              className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
+              style={{ width: `${percent}%` }}
+            />
+          </div>
+        )}
 
         <button
           onClick={() => navigate("/recipes")}
