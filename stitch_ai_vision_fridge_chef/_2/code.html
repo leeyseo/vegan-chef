@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>분석 중 - Fridge Chef</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Brand Anchors -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "outline": "#6c7b6d",
+                            "on-surface": "#161d17",
+                            "primary-fixed-dim": "#4ae183",
+                            "on-primary": "#ffffff",
+                            "background": "#f3fcf1",
+                            "on-tertiary-fixed-variant": "#793015",
+                            "tertiary-fixed-dim": "#ffb59d",
+                            "tertiary": "#98472a",
+                            "inverse-on-surface": "#ebf3e8",
+                            "primary-fixed": "#6bfe9c",
+                            "secondary-fixed-dim": "#ffb961",
+                            "on-tertiary-container": "#772e14",
+                            "on-error": "#ffffff",
+                            "surface-container-highest": "#dce5da",
+                            "surface-variant": "#dce5da",
+                            "on-error-container": "#93000a",
+                            "primary": "#006d37",
+                            "secondary": "#865300",
+                            "on-background": "#161d17",
+                            "on-secondary-fixed": "#2b1700",
+                            "surface-container": "#e8f0e5",
+                            "inverse-surface": "#2b322b",
+                            "surface-container-low": "#eef6eb",
+                            "on-surface-variant": "#3d4a3e",
+                            "on-tertiary": "#ffffff",
+                            "surface-container-lowest": "#ffffff",
+                            "on-primary-fixed-variant": "#005228",
+                            "error": "#ba1a1a",
+                            "tertiary-fixed": "#ffdbd0",
+                            "on-primary-container": "#005027",
+                            "on-primary-fixed": "#00210c",
+                            "surface-dim": "#d4dcd2",
+                            "primary-container": "#2ecc71",
+                            "surface-tint": "#006d37",
+                            "on-secondary-container": "#694000",
+                            "surface-bright": "#f3fcf1",
+                            "secondary-fixed": "#ffddb9",
+                            "secondary-container": "#fea520",
+                            "on-tertiary-fixed": "#390c00",
+                            "tertiary-container": "#ff9875",
+                            "surface": "#f3fcf1",
+                            "surface-container-high": "#e2ebe0",
+                            "error-container": "#ffdad6",
+                            "on-secondary-fixed-variant": "#663e00",
+                            "outline-variant": "#bbcbbb",
+                            "on-secondary": "#ffffff",
+                            "inverse-primary": "#4ae183"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "sm": "8px",
+                            "base": "4px",
+                            "md": "16px",
+                            "xs": "4px",
+                            "container-max": "1200px",
+                            "gutter": "24px",
+                            "xl": "40px",
+                            "lg": "24px"
+                    },
+                    "fontFamily": {
+                            "headline-lg": ["Inter"],
+                            "headline-md": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "headline-lg-mobile": ["Inter"],
+                            "label-sm": ["Inter"],
+                            "body-md": ["Inter"],
+                            "label-md": ["Inter"],
+                            "headline-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                            "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                            "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    },
+                    boxShadow: {
+                        'level-1': '0px 4px 20px rgba(44, 62, 80, 0.05)',
+                        'level-2': '0px 12px 32px rgba(44, 62, 80, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ai-pulse {
+            animation: aiGlow 2s infinite alternate;
+        }
+        @keyframes aiGlow {
+            from { box-shadow: 0 0 10px rgba(46, 204, 113, 0.2); }
+            to { box-shadow: 0 0 20px rgba(46, 204, 113, 0.6); }
+        }
+        .scanning-line {
+            animation: scanMove 3s ease-in-out infinite alternate;
+        }
+        @keyframes scanMove {
+            0% { top: 10%; }
+            100% { top: 90%; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- Shared Component: TopNavBar -->
+<!-- Applying structural logic and exact styling keys from JSON -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-surface/95 backdrop-blur-sm flex justify-between items-center px-lg h-16 border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">Fridge Chef</span>
+</div>
+<!-- Navigation Links (Desktop) -->
+<div class="hidden md:flex items-center gap-lg">
+<!-- Active State Logic: Mapping to Home as base state for scanning -->
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md scale-95 active:transition-transform" href="#">Home</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-body-md text-body-md scale-95 active:transition-transform" href="#">My Recipes</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-body-md text-body-md scale-95 active:transition-transform" href="#">Saved</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-body-md text-body-md scale-95 active:transition-transform" href="#">Settings</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="bg-primary-container text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="camera_alt">camera_alt</span>
+                Scan Fridge
+            </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="Chef profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoZ39_tHrZ1s0qwo8Iu1ZJmaok8JfB5klxLkBylk9XQu18vBOMo4qkrhN__oRQgl4Xxrd494lYuZb0PhdntN4fIj7J19j6IodIIDnWuz6PHFjJKduC7FQ4BonPFiO8YV1FFcxadM4WSlIPkvRwcUi5u46z1gWBW_oXt5u11xK8k5Z2euk83XQ5equkCFApgE562h_26Kdx0uZ_f1GtTF7ABsq3_gdXI82vPbQ3WsLOKeC0J1eFnDXy3Q5m6_EVmDIXpax4i20MgIM-"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-xl px-lg md:px-gutter max-w-container-max mx-auto w-full">
+<header class="mb-lg">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-xs">
+                냉장고 스캔 분석 중
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                최고의 레시피를 위해 식재료를 파악하고 있습니다.
+            </p>
+</header>
+<!-- Split Screen Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+<!-- Left Side: Image with Bounding Boxes (8 cols) -->
+<div class="md:col-span-8 relative rounded-xl overflow-hidden shadow-level-1 bg-surface-container-lowest">
+<!-- Main Fridge Image -->
+<img alt="냉장고 내부 사진" class="w-full h-auto object-cover aspect-video md:aspect-[4/3]" data-alt="A bright, clean interior of a modern refrigerator, well-stocked with fresh ingredients on clear glass shelves. Visible items include a carton of brown eggs, a large jug of milk, loose white onions, and vibrant orange carrots. The lighting is cool, crisp, and high-key white, creating a fresh and appetizing mood. The style is professional culinary photography, clean, organized, and perfectly suited for a premium smart-kitchen app interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk9nInwbEOng8c4Qs_Xx6lytnJZUadfv32qUA_RoL5APz1oy47G052HuDBejZrEgotgX7E76xUNdfIUi1YQClYscs0bIi_4ieeco-tzPu4LfjrpXIHVkzv5HKTwrGlhW-36ZUUNpG8nZowXckLZXTk1M-wrkZho7xNiVkHzIEb_17ThoPogeyz6GcS0bSyhysoGitmsqqxLBECPfWGC6FpSKMiQiJEwH77shXD-u_yE95aCR9OnJlFptgEtcMcD_3At2-NVmtyin1Q"/>
+<!-- Overlay: Scanning Line -->
+<div class="absolute left-0 w-full h-1 bg-primary-container shadow-[0_0_10px_#2ECC71] scanning-line z-10 opacity-70"></div>
+<!-- Bounding Box 1: Eggs -->
+<div class="absolute top-[15%] left-[20%] w-[25%] h-[20%] border-2 border-primary-container bg-primary-container/10 rounded ai-pulse z-20 flex items-start justify-start p-1 transition-all duration-500">
+<span class="bg-primary-container text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded shadow-sm flex items-center gap-1 backdrop-blur-md">
+<span class="material-symbols-outlined text-[14px]">egg</span>
+                        계란 (98%)
+                    </span>
+</div>
+<!-- Bounding Box 2: Milk -->
+<div class="absolute top-[40%] left-[60%] w-[15%] h-[35%] border-2 border-primary-container bg-primary-container/10 rounded ai-pulse z-20 flex items-start justify-start p-1 transition-all duration-500 delay-100">
+<span class="bg-primary-container text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded shadow-sm flex items-center gap-1 backdrop-blur-md">
+<span class="material-symbols-outlined text-[14px]">water_drop</span>
+                        우유 (95%)
+                    </span>
+</div>
+<!-- Bounding Box 3: Onions -->
+<div class="absolute top-[65%] left-[10%] w-[20%] h-[20%] border-2 border-primary-container bg-primary-container/10 rounded ai-pulse z-20 flex items-start justify-start p-1 transition-all duration-500 delay-200">
+<span class="bg-primary-container text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded shadow-sm flex items-center gap-1 backdrop-blur-md">
+<span class="material-symbols-outlined text-[14px]">nutrition</span>
+                        양파 (92%)
+                    </span>
+</div>
+<!-- Bounding Box 4: Carrots -->
+<div class="absolute top-[75%] left-[45%] w-[30%] h-[15%] border-2 border-primary-container bg-primary-container/10 rounded ai-pulse z-20 flex items-start justify-start p-1 transition-all duration-500 delay-300">
+<span class="bg-primary-container text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded shadow-sm flex items-center gap-1 backdrop-blur-md">
+<span class="material-symbols-outlined text-[14px]">grass</span>
+                        당근 (88%)
+                    </span>
+</div>
+</div>
+<!-- Right Side: Analysis Sidebar (4 cols) -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-xl shadow-level-1 border border-surface-container-highest p-lg flex flex-col gap-lg sticky top-24">
+<!-- Status Section -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">분석 현황</h2>
+<span class="material-symbols-outlined text-primary-container animate-spin" style="font-variation-settings: 'wght' 600;">autorenew</span>
+</div>
+<p class="font-body-md text-body-md text-primary font-medium">Claude AI가 재료를 분석 중입니다...</p>
+<!-- Progress Bar -->
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden mt-xs">
+<div class="h-full bg-primary-container rounded-full w-[65%] transition-all duration-1000 ease-in-out relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-white/20 animate-pulse"></div>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-right">진행률 65%</p>
+</div>
+<hr class="border-surface-container-highest"/>
+<!-- Detected Ingredients List -->
+<div class="flex flex-col gap-md flex-grow">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">인식된 재료</h3>
+<ul class="flex flex-col gap-sm">
+<!-- Item 1 -->
+<li class="flex items-center gap-md p-sm rounded-lg bg-surface-container-low border border-surface-container transition-all hover:bg-surface-container">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium flex-grow">계란</span>
+<span class="font-label-sm text-label-sm text-outline">신선함</span>
+</li>
+<!-- Item 2 -->
+<li class="flex items-center gap-md p-sm rounded-lg bg-surface-container-low border border-surface-container transition-all hover:bg-surface-container">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium flex-grow">우유</span>
+<span class="font-label-sm text-label-sm text-outline">유제품</span>
+</li>
+<!-- Item 3 -->
+<li class="flex items-center gap-md p-sm rounded-lg bg-surface-container-low border border-surface-container transition-all hover:bg-surface-container">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium flex-grow">양파</span>
+<span class="font-label-sm text-label-sm text-outline">채소류</span>
+</li>
+<!-- Item 4 -->
+<li class="flex items-center gap-md p-sm rounded-lg bg-surface-container-low border border-surface-container transition-all hover:bg-surface-container">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium flex-grow">당근</span>
+<span class="font-label-sm text-label-sm text-outline">채소류</span>
+</li>
+<!-- Pending Item Indicator -->
+<li class="flex items-center gap-md p-sm rounded-lg border border-dashed border-outline-variant opacity-60">
+<div class="w-8 h-8 flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined text-[20px] animate-pulse">search</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">추가 재료 탐색 중...</span>
+</li>
+</ul>
+</div>
+<!-- Action Areas -->
+<div class="mt-auto pt-md flex gap-sm">
+<button class="flex-1 py-3 px-4 rounded-lg border-2 border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors text-center">
+                        취소
+                    </button>
+<button class="flex-[2] py-3 px-4 rounded-lg bg-surface-variant text-on-surface-variant font-label-md text-label-md cursor-not-allowed text-center flex justify-center items-center gap-2" disabled="">
+<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+                        레시피 생성 준비
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Shared Component: Footer -->
+<footer class="w-full py-xl px-lg mt-xl flex flex-col items-center gap-md border-t border-outline-variant bg-surface-container">
+<div class="font-headline-md text-headline-md font-bold text-on-surface">Fridge Chef</div>
+<div class="flex gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">About</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Github</a>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-sm">© 2024 Fridge Chef. Powered by Claude Vision, React &amp; Express.</p>
+</footer>
+</body></html>

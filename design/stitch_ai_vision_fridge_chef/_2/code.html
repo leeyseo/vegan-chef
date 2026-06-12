@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vegan Chef - Analysis Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "error-container": "#ffdad6",
+                "surface-container-lowest": "#ffffff",
+                "primary-container": "#1b5e20",
+                "on-secondary": "#ffffff",
+                "primary-fixed": "#acf4a4",
+                "secondary-fixed": "#abf4ac",
+                "background": "#f6fbf3",
+                "surface-container": "#ebefe8",
+                "surface-variant": "#dfe4dc",
+                "on-secondary-fixed": "#002107",
+                "on-surface": "#181d18",
+                "tertiary-fixed-dim": "#c2c9bb",
+                "inverse-on-surface": "#eef2ea",
+                "tertiary-fixed": "#dee5d6",
+                "tertiary-container": "#4d5449",
+                "outline-variant": "#c0c9bb",
+                "primary": "#00450d",
+                "surface-bright": "#f6fbf3",
+                "secondary-container": "#abf4ac",
+                "on-primary-fixed": "#002203",
+                "on-error": "#ffffff",
+                "secondary-fixed-dim": "#90d792",
+                "on-primary-container": "#90d689",
+                "inverse-primary": "#91d78a",
+                "outline": "#717a6d",
+                "on-background": "#181d18",
+                "on-tertiary-fixed": "#171d14",
+                "surface-dim": "#d7dbd4",
+                "on-secondary-container": "#2e7238",
+                "on-primary": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "surface-tint": "#2a6b2c",
+                "secondary": "#286b33",
+                "surface-container-highest": "#dfe4dc",
+                "surface-container-high": "#e5eae2",
+                "inverse-surface": "#2d322d",
+                "on-error-container": "#93000a",
+                "primary-fixed-dim": "#91d78a",
+                "on-tertiary-container": "#c1c8ba",
+                "surface": "#f6fbf3",
+                "surface-container-low": "#f1f5ed",
+                "on-primary-fixed-variant": "#0c5216",
+                "on-tertiary-fixed-variant": "#42493e",
+                "on-surface-variant": "#41493e",
+                "tertiary": "#363d33",
+                "on-secondary-fixed-variant": "#07521d",
+                "error": "#ba1a1a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "margin-mobile": "16px",
+                "gutter": "24px",
+                "xl": "80px",
+                "md": "24px",
+                "lg": "48px",
+                "sm": "12px",
+                "margin-desktop": "64px",
+                "xs": "4px",
+                "base": "8px"
+        },
+        "fontFamily": {
+                "caption": [
+                        "Be Vietnam Pro"
+                ],
+                "headline-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-lg": [
+                        "Be Vietnam Pro"
+                ],
+                "display-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "label-md": [
+                        "Be Vietnam Pro"
+                ],
+                "headline-lg-mobile": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-md": [
+                        "Be Vietnam Pro"
+                ],
+                "headline-lg": [
+                        "Plus Jakarta Sans"
+                ]
+        },
+        "fontSize": {
+                "caption": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+    .scanning-line {
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(to right, transparent, #81c784, transparent);
+        box-shadow: 0 0 8px #81c784;
+        animation: scan 2s linear infinite;
+        z-index: 10;
+    }
+    @keyframes scan {
+        0% { top: 0; opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { top: 100%; opacity: 0; }
+    }
+    .bounding-box {
+        position: absolute;
+        border: 2px solid #81c784;
+        border-radius: 8px;
+        background-color: rgba(129, 199, 132, 0.2);
+        animation: pulse 1.5s infinite alternate;
+    }
+    @keyframes pulse {
+        0% { border-color: rgba(129, 199, 132, 0.5); }
+        100% { border-color: rgba(129, 199, 132, 1); }
+    }
+</style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface docked full-width top-0 bg-surface-container-low flat no shadows">
+<div class="flex justify-between items-center px-margin-desktop py-4 w-full max-w-[1280px] mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary">
+            Vegan Chef
+        </div>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Vegan Recipes</a>
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">My Pantry</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Sustainable Tips</a>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-surface-tint transition-colors">
+            Scan Vegan Fridge
+        </button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col lg:flex-row gap-gutter px-margin-mobile md:px-margin-desktop py-lg max-w-[1280px] mx-auto w-full h-[calc(100vh-80px)]">
+<!-- Image Analysis Area -->
+<section class="flex-1 relative rounded-xl overflow-hidden border border-outline-variant bg-surface-container-lowest flex items-center justify-center">
+<!-- Analyzing Overlay -->
+<div class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-surface/80 backdrop-blur-sm pointer-events-none" id="analyzing-overlay">
+<span class="material-symbols-outlined text-display-lg text-primary animate-spin mb-4" data-icon="sync">sync</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-2">비건 식재료 정밀 분석 중...</h2>
+<div class="flex items-center gap-2 bg-tertiary px-4 py-2 rounded-full mt-4">
+<span class="material-symbols-outlined text-on-tertiary text-sm" data-icon="filter_alt">filter_alt</span>
+<span class="font-label-md text-label-md text-on-tertiary">동물성 재료 필터링 활성화됨</span>
+</div>
+</div>
+<img alt="Inside of a well-stocked refrigerator" class="w-full h-full object-cover opacity-50" data-alt="A high-quality, brightly lit photograph of the inside of a clean, modern refrigerator. The shelves are neatly organized with fresh, vibrant vegetables, fruits, and plant-based staples in clear containers. The lighting is cool and clean, emphasizing a healthy, organic lifestyle. The overall mood is fresh and organized, fitting a premium vegan lifestyle application." id="fridge-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy1LglWHPTfAuGIKB29KebQeQ3gYv_-YFTooUZmNCOUuDBFcimPZGW7ynrlok9wwik-7NZgp1tQd-oMe6LDx2OZeJaqr9yi6mIES6quSjZ0YPJviV6Tf3448wn2oU6gVI247oWxYVNTBuu6oC9QN1Bwnb4vzb3qr4bAmZ6XImTnfhk-QlnkAwb-2Ny3NHOlqRBibGdsIrjmuEoh0kgCMFLaLsao1TLu3a3Sy3xg2RPdva5gl7xE0_4hZb4wRF1ffy-BQROcLEmEVOs"/>
+<div class="scanning-line hidden" id="scan-line"></div>
+<!-- Bounding Boxes (Hidden initially, shown after scan) -->
+<div class="hidden" id="bounding-boxes">
+<div class="bounding-box" style="top: 20%; left: 30%; width: 15%; height: 20%;">
+<div class="absolute -top-8 left-0 bg-primary text-on-primary font-caption text-caption px-2 py-1 rounded-md whitespace-nowrap">Tofu 98%</div>
+</div>
+<div class="bounding-box" style="top: 50%; left: 10%; width: 20%; height: 15%;">
+<div class="absolute -top-8 left-0 bg-primary text-on-primary font-caption text-caption px-2 py-1 rounded-md whitespace-nowrap">Broccoli 95%</div>
+</div>
+<div class="bounding-box" style="top: 70%; left: 60%; width: 10%; height: 25%;">
+<div class="absolute -top-8 left-0 bg-primary text-on-primary font-caption text-caption px-2 py-1 rounded-md whitespace-nowrap">Almond Milk 99%</div>
+</div>
+</div>
+</section>
+<!-- Sidebar Results -->
+<aside class="w-full lg:w-[400px] flex flex-col gap-6 bg-surface-container-lowest rounded-xl border border-outline-variant p-6 opacity-50 pointer-events-none transition-opacity duration-500" id="results-sidebar">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Identified Ingredients</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">We found 12 vegan items in your fridge.</p>
+</div>
+<div class="flex-grow overflow-y-auto pr-2 space-y-4">
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg border border-transparent hover:border-outline-variant transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="egg_alt">egg_alt</span> <!-- Using closest icon for tofu -->
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Tofu</div>
+<div class="font-caption text-caption text-on-surface-variant">Firm, Organic</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed font-caption text-caption px-2 py-1 rounded-full mb-1">High Freshness</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg border border-transparent hover:border-outline-variant transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="eco">eco</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Broccoli</div>
+<div class="font-caption text-caption text-on-surface-variant">Fresh Produce</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed font-caption text-caption px-2 py-1 rounded-full mb-1">Medium Freshness</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg border border-transparent hover:border-outline-variant transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Almond Milk</div>
+<div class="font-caption text-caption text-on-surface-variant">Unsweetened</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed font-caption text-caption px-2 py-1 rounded-full mb-1">High Freshness</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-4 rounded-xl hover:bg-surface-tint transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+            Generate Vegan Recipes
+        </button>
+</aside>
+</main>
+<script>
+    // Simulate scanning process
+    setTimeout(() => {
+        const overlay = document.getElementById('analyzing-overlay');
+        const fridgeImg = document.getElementById('fridge-image');
+        const scanLine = document.getElementById('scan-line');
+        const boundingBoxes = document.getElementById('bounding-boxes');
+        const sidebar = document.getElementById('results-sidebar');
+
+        // Start scan
+        overlay.classList.add('hidden');
+        fridgeImg.classList.remove('opacity-50');
+        scanLine.classList.remove('hidden');
+
+        // Finish scan after a few seconds
+        setTimeout(() => {
+            scanLine.classList.add('hidden');
+            boundingBoxes.classList.remove('hidden');
+            sidebar.classList.remove('opacity-50', 'pointer-events-none');
+        }, 2500);
+
+    }, 1500);
+</script>
+</body></html>

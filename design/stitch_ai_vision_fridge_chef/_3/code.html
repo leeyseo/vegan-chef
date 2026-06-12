@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vegan Chef - Recommended Recipes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#1b5e20",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#acf4a4",
+                      "secondary-fixed": "#abf4ac",
+                      "background": "#f6fbf3",
+                      "surface-container": "#ebefe8",
+                      "surface-variant": "#dfe4dc",
+                      "on-secondary-fixed": "#002107",
+                      "on-surface": "#181d18",
+                      "tertiary-fixed-dim": "#c2c9bb",
+                      "inverse-on-surface": "#eef2ea",
+                      "tertiary-fixed": "#dee5d6",
+                      "tertiary-container": "#4d5449",
+                      "outline-variant": "#c0c9bb",
+                      "primary": "#00450d",
+                      "surface-bright": "#f6fbf3",
+                      "secondary-container": "#abf4ac",
+                      "on-primary-fixed": "#002203",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#90d792",
+                      "on-primary-container": "#90d689",
+                      "inverse-primary": "#91d78a",
+                      "outline": "#717a6d",
+                      "on-background": "#181d18",
+                      "on-tertiary-fixed": "#171d14",
+                      "surface-dim": "#d7dbd4",
+                      "on-secondary-container": "#2e7238",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#2a6b2c",
+                      "secondary": "#286b33",
+                      "surface-container-highest": "#dfe4dc",
+                      "surface-container-high": "#e5eae2",
+                      "inverse-surface": "#2d322d",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#91d78a",
+                      "on-tertiary-container": "#c1c8ba",
+                      "surface": "#f6fbf3",
+                      "surface-container-low": "#f1f5ed",
+                      "on-primary-fixed-variant": "#0c5216",
+                      "on-tertiary-fixed-variant": "#42493e",
+                      "on-surface-variant": "#41493e",
+                      "tertiary": "#363d33",
+                      "on-secondary-fixed-variant": "#07521d",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "xl": "80px",
+                      "md": "24px",
+                      "lg": "48px",
+                      "sm": "12px",
+                      "margin-desktop": "64px",
+                      "xs": "4px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "caption": ["Be Vietnam Pro"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Be Vietnam Pro"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "label-md": ["Be Vietnam Pro"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-md": ["Be Vietnam Pro"],
+                      "headline-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(129, 199, 132, 0.2);
+        }
+        .organic-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: morph 8s ease-in-out infinite;
+        }
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+        .subtle-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .subtle-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(0, 69, 13, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface docked full-width top-0 z-50 sticky">
+<div class="bg-surface-container-low dark:bg-surface-container-highest">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-[1280px] mx-auto flat no shadows">
+<!-- Brand -->
+<a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+                    Vegan Chef
+                </a>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center gap-gutter">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="#">Home</a>
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 opacity-80 scale-95 transition-all duration-150" href="#">Vegan Recipes</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="#">My Pantry</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="#">Sustainable Tips</a>
+</div>
+<!-- Primary Action -->
+<button class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                    Scan Vegan Fridge
+                </button>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-grow w-full max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-lg flex flex-col gap-xl relative">
+<!-- Decorative Background Element -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-tertiary-fixed opacity-20 organic-shape blur-3xl -z-10 pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+<!-- Header Section -->
+<section class="flex flex-col gap-md">
+<h1 class="font-display-lg text-display-lg text-primary max-w-2xl leading-tight">
+                당신의 냉장고로 만드는<br/>최고의 비건 요리
+            </h1>
+<p class="font-body-lg text-body-lg text-outline max-w-xl">
+                We found 12 perfect matches based on your current pantry items. Let's cook something delicious and sustainable.
+            </p>
+<!-- Filters -->
+<div class="flex flex-wrap gap-sm mt-4">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md flex items-center gap-2 border border-primary transition-colors">
+<span class="material-symbols-outlined text-sm">check</span>
+                    All
+                </button>
+<button class="bg-surface text-on-surface-variant px-4 py-2 rounded-full font-label-md text-label-md border border-outline-variant hover:border-primary hover:text-primary transition-colors">
+                    Gluten-Free
+                </button>
+<button class="bg-surface text-on-surface-variant px-4 py-2 rounded-full font-label-md text-label-md border border-outline-variant hover:border-primary hover:text-primary transition-colors">
+                    Quick (under 15m)
+                </button>
+<button class="bg-surface text-on-surface-variant px-4 py-2 rounded-full font-label-md text-label-md border border-outline-variant hover:border-primary hover:text-primary transition-colors">
+                    High Protein
+                </button>
+</div>
+</section>
+<!-- Featured Recipe Bento -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<article class="md:col-span-8 bg-surface-container-lowest rounded-[24px] overflow-hidden border border-outline-variant/30 subtle-lift relative group min-h-[400px] flex flex-col justify-end p-gutter">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A vibrant, high-quality overhead shot of Spicy Tofu Bibimbap served in a beautifully crafted ceramic bowl. The dish features perfectly cubed, crispy glazed tofu, an array of meticulously arranged julienned vegetables including carrots, spinach, and mushrooms, resting on a bed of fluffy quinoa. The lighting is soft and natural, emphasizing the fresh, organic textures and rich, earthy colors. The setting is a clean, modern wooden table consistent with a premium, health-conscious minimalist aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5mojD5Paph_uyBYLNdROo6rncGFdZZcY5t-qna3UtizsXhPl1KMp1OAEPbM_nc1RJPRgjoYeVMZI_RgnLxi92C1hcCv9GwrR2vaTkznO3DIkgT9dHTf4M_s042uR0bXvxCtLu9bci_Bm4TEvcxQmbGNTYGp6BYEgJZDJGNFE1UKHJ5usRz_xY4zqfV3rsL6l_Dk0_3gomY3GJIKBE-bRCnDk-co2W0J3J4hyd-UvSCMNMyzIoLBrl_eGoBKWOVB-56BSd0g6uXh0h');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/40 to-transparent"></div>
+<div class="relative z-10 text-surface-container-lowest">
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-primary text-on-primary px-3 py-1 rounded-full font-caption text-caption uppercase tracking-wider font-bold">Featured Match</span>
+<span class="bg-surface-container-lowest/20 backdrop-blur-md px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> 20m
+                        </span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-2">Spicy Tofu Bibimbap</h2>
+<p class="font-body-md text-body-md opacity-90 max-w-lg mb-4">A comforting Korean classic reimagined with crispy organic tofu and a vibrant array of fresh, crunchy vegetables from your fridge.</p>
+<div class="flex flex-wrap items-center gap-4 border-t border-surface-container-lowest/20 pt-4">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-headline-md text-headline-md">
+                                95%
+                            </div>
+<span class="font-label-md text-label-md">Match</span>
+</div>
+<div class="w-px h-8 bg-surface-container-lowest/30"></div>
+<div class="flex flex-wrap gap-2">
+<span class="flex items-center gap-1 font-caption text-caption text-primary-fixed">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Tofu, Rice, Spinach
+                            </span>
+<span class="flex items-center gap-1 font-caption text-caption text-error-container">
+<span class="material-symbols-outlined text-[16px]">error</span> Gochujang
+                            </span>
+</div>
+</div>
+</div>
+</article>
+<!-- Quick Stats Bento -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="glass-card rounded-[24px] p-md flex-1 subtle-lift">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Pantry Utilization</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="font-display-lg text-display-lg text-primary leading-none">8</span>
+<span class="font-body-md text-body-md text-outline pb-1">items used</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2 mb-2">
+<div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+</div>
+<p class="font-caption text-caption text-on-surface-variant">Using 75% of items expiring soon</p>
+</div>
+<div class="glass-card rounded-[24px] p-md flex-1 flex flex-col justify-center items-center text-center subtle-lift bg-primary-container text-on-primary-container border-none">
+<span class="material-symbols-outlined text-[48px] mb-2 opacity-80" style="font-variation-settings: 'FILL' 1;">eco</span>
+<h3 class="font-label-md text-label-md mb-1">Carbon Saved</h3>
+<p class="font-headline-md text-headline-md font-bold">2.4 kg CO₂</p>
+<p class="font-caption text-caption opacity-80 mt-1">by choosing plant-based today</p>
+</div>
+</div>
+</section>
+<!-- Recipe Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<article class="glass-card rounded-[16px] overflow-hidden subtle-lift flex flex-col">
+<div class="h-48 bg-cover bg-center relative" data-alt="A clean, bright top-down photograph of a nourishing vegan Buddha bowl on a white minimalist background. The bowl contains a vibrant mix of roasted sweet potatoes, crispy chickpeas, sliced avocado, massaged kale, and a drizzle of creamy tahini dressing. The aesthetic is light, airy, and deeply organic, emphasizing health and clarity. Soft, even lighting highlights the diverse textures of the plant-based ingredients." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCGbcMOULLc4yrqsDnCFQkRAfSEFh7SUeu32qHepDDqs_1xgvsYozRNvoQCaHJ63J8UzlzpaRV5Jmgh13RipJr4gMKs_PboxE741vnyQ9Q7vFu8RQb6mn9iDiPoxeRaPWNLsbpz203xX29sjdzN7wYvVaQi9S8eKwkxNTgdrA-bTrwAmKWqeXtd7AonIEgjkBIdx5Aqy8-efiywzX6FVQzJ_xnJ-XZU0-ng1X7rY6COyMDk-fYAFJSDVfE8xs_C9koN7nZYP1EUUzvE');">
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-primary px-2 py-1 rounded-md font-label-md text-label-md font-bold flex items-center gap-1 shadow-sm">
+                        85%
+                    </div>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Roasted Chickpea Bowl</h3>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">bookmark_border</span></button>
+</div>
+<div class="flex items-center gap-3 mb-4">
+<span class="font-caption text-caption text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 15m</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-0.5 rounded-full font-caption text-caption">High Protein</span>
+</div>
+<div class="mt-auto space-y-2">
+<p class="font-caption text-caption font-semibold text-on-surface">Ingredients</p>
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-1 bg-surface-container text-on-surface text-xs rounded-md border border-outline-variant/50">Chickpeas</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface text-xs rounded-md border border-outline-variant/50">Kale</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface text-xs rounded-md border border-outline-variant/50">Tahini</span>
+<span class="px-2 py-1 bg-error-container/30 text-error text-xs rounded-md border border-error/20 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">add</span> Lemon</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="glass-card rounded-[16px] overflow-hidden subtle-lift flex flex-col">
+<div class="h-48 bg-cover bg-center relative" data-alt="A beautifully styled shot of a vegan lentil bolognese pasta served in a shallow, matte sage-green ceramic dish. The rich tomato sauce is generously clinging to perfectly cooked gluten-free spaghetti, topped with fresh basil leaves and a sprinkle of nutritional yeast. The setting includes rustic linen napkins and subtle wooden utensils, creating an inviting, comforting, yet clean and modern culinary atmosphere." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQGWimnHvAwYFuW1A6dbze2-5B7rxmq0kQ2SmfAXhVaR0D1YIh2HJpU6Nph2eBOheUHHYppmyOkWOQ-YHU7diNZckdYtnXizv7hGXK4yx6569p2KBo_AVFFOUTqeO-TPv__k_EJCU-H6AQgO8Bfi-RugDZpWeWFRpqv42W-8X_4yum69jHXC9-ooIsyH05fmCS6kM0CdqIVe_X8atdWIm8hLZXaLRg0W10zZy-XnsQRopQs8zx3ai56SBKgZmRw3QJCOTwOs_zBFgj');">
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-primary px-2 py-1 rounded-md font-label-md text-label-md font-bold flex items-center gap-1 shadow-sm">
+                        78%
+                    </div>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Lentil Bolognese</h3>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">bookmark_border</span></button>
+</div>
+<div class="flex items-center gap-3 mb-4">
+<span class="font-caption text-caption text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 35m</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-0.5 rounded-full font-caption text-caption">Gluten-Free</span>
+</div>
+<div class="mt-auto space-y-2">
+<p class="font-caption text-caption font-semibold text-on-surface">Ingredients</p>
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-1 bg-surface-container text-on-surface text-xs rounded-md border border-outline-variant/50">Lentils</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface text-xs rounded-md border border-outline-variant/50">Tomatoes</span>
+<span class="px-2 py-1 bg-error-container/30 text-error text-xs rounded-md border border-error/20 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">add</span> GF Pasta</span>
+<span class="px-2 py-1 bg-error-container/30 text-error text-xs rounded-md border border-error/20 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">add</span> Basil</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="glass-card rounded-[16px] overflow-hidden subtle-lift flex flex-col">
+<div class="h-48 bg-cover bg-center relative" data-alt="A close-up, high-end photography of creamy vegan avocado pesto zucchini noodles (zoodles) presented on a sleek white plate. The dish is garnished with toasted pine nuts and a vibrant cherry tomato half. The lighting is crisp and natural, highlighting the glossy, vivid green texture of the pesto and the delicate strands of zucchini. The aesthetic aligns with a modern, fresh, and minimalist health-focused lifestyle." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDvpRURqyvP50pvRE56jZGnc0lsi92LfkuB7uy9H08DUIg3Z4ap7MkutOG4_VLtxi8iT-WdL4RgaqtRPc8Cl8ES-RmR7yBM6b35onp-K2M9Umj_wrgHVAs5awaCu4Wn3zbNuS4uSXlOvL8lQyP_DAdTPBS5Fh2hWvIwo2QckvblayRy-NfRrq8y0m0YuB8xl8WxwvAdNWrVz_RBmkCGH0TTI6RF4IdzO4Bm04thI1Ioc9vgOXVSVx5yNjZBKLHzIIrOqT7j6Dq1loGY');">
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-primary px-2 py-1 rounded-md font-label-md text-label-md font-bold flex items-center gap-1 shadow-sm">
+                        70%
+                    </div>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Zucchini Pesto Noodles</h3>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">bookmark_border</span></button>
+</div>
+<div class="flex items-center gap-3 mb-4">
+<span class="font-caption text-caption text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 10m</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-0.5 rounded-full font-caption text-caption">Quick</span>
+</div>
+<div class="mt-auto space-y-2">
+<p class="font-caption text-caption font-semibold text-on-surface">Ingredients</p>
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-1 bg-surface-container text-on-surface text-xs rounded-md border border-outline-variant/50">Zucchini</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface text-xs rounded-md border border-outline-variant/50">Avocado</span>
+<span class="px-2 py-1 bg-error-container/30 text-error text-xs rounded-md border border-error/20 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">add</span> Pine Nuts</span>
+<span class="px-2 py-1 bg-error-container/30 text-error text-xs rounded-md border border-error/20 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">add</span> Basil</span>
+</div>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest full-width bottom-0 mt-auto">
+<div class="bg-surface-container-low dark:bg-surface-container-highest flat no shadows">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-lg w-full max-w-[1280px] mx-auto gap-gutter">
+<a class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+                    Vegan Chef
+                </a>
+<div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="#">Ethical Sourcing</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="#">Privacy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="#">Terms</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200" href="#">100% Plant-Based</a>
+</div>
+<div class="font-caption text-caption text-on-surface dark:text-on-surface-variant opacity-70">
+                    © 2024 Vegan Chef. All rights reserved.
+                </div>
+</div>
+</div>
+</footer>
+</body></html>

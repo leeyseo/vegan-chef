@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>김치볶음밥 레시피 - Fridge Chef</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#6c7b6d",
+                        "on-surface": "#161d17",
+                        "primary-fixed-dim": "#4ae183",
+                        "on-primary": "#ffffff",
+                        "background": "#f3fcf1",
+                        "on-tertiary-fixed-variant": "#793015",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "tertiary": "#98472a",
+                        "inverse-on-surface": "#ebf3e8",
+                        "primary-fixed": "#6bfe9c",
+                        "secondary-fixed-dim": "#ffb961",
+                        "on-tertiary-container": "#772e14",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#dce5da",
+                        "surface-variant": "#dce5da",
+                        "on-error-container": "#93000a",
+                        "primary": "#006d37",
+                        "secondary": "#865300",
+                        "on-background": "#161d17",
+                        "on-secondary-fixed": "#2b1700",
+                        "surface-container": "#e8f0e5",
+                        "inverse-surface": "#2b322b",
+                        "surface-container-low": "#eef6eb",
+                        "on-surface-variant": "#3d4a3e",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#005228",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-primary-container": "#005027",
+                        "on-primary-fixed": "#00210c",
+                        "surface-dim": "#d4dcd2",
+                        "primary-container": "#2ecc71",
+                        "surface-tint": "#006d37",
+                        "on-secondary-container": "#694000",
+                        "surface-bright": "#f3fcf1",
+                        "secondary-fixed": "#ffddb9",
+                        "secondary-container": "#fea520",
+                        "on-tertiary-fixed": "#390c00",
+                        "tertiary-container": "#ff9875",
+                        "surface": "#f3fcf1",
+                        "surface-container-high": "#e2ebe0",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "outline-variant": "#bbcbbb",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#4ae183"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "base": "4px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "xl": "40px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-sans antialiased min-h-screen">
+<main class="max-w-container-max mx-auto bg-surface-container-lowest shadow-[0px_4px_20px_rgba(44,62,80,0.05)] min-h-screen relative pb-xl">
+<!-- Hero Section -->
+<header class="relative w-full h-[460px] min-h-[300px] rounded-b-[2rem] overflow-hidden shadow-[0px_12px_32px_rgba(44,62,80,0.12)]">
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent z-10"></div>
+<img alt="김치볶음밥" class="absolute inset-0 w-full h-full object-cover" data-alt="A top-down, high-quality culinary photograph of a sizzling hot, perfectly cooked Kimchi Fried Rice in a traditional black cast-iron pan. The rice is a vibrant, deep reddish-orange, glistening with moisture and spotted with pieces of dark red fermented kimchi and finely chopped green scallions. A perfectly fried sunny-side-up egg rests in the center, its golden yolk slightly runny. The pan sits on a clean, modern white marble countertop, bathed in bright, soft natural daylight that creates a fresh, appetizing, and professional light-mode aesthetic, utilizing deep greens and crisp whites in the surrounding environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ-3gd-FRLqSplHa8WJ15T1-byLUZTXowLb5sQgqJ8wNOiKSYrrmL7i-bA6y4vcxJKEmLfyC3C7HEfMvcVelpxkPaldp_FtYOaVVLgHnkkLUBzt4s66ni5xgVjVwH4iJlnWzlACMo18_OaY9Y4SC-J4xNFNKWpbZ0H8BJw8OLn1NBrn_8gVNcROKOODZ6cG65DtjjeeYmwaECQjjlCoHq5Qdg4IopNGkbp50HuRdc9nLfr5rJ0vylVQ-5R8fX-fYLRvUxIOoGNXh3M"/>
+<!-- Floating Back Button (Task-Focused Canvas) -->
+<button aria-label="뒤로 가기" class="absolute top-md left-md z-20 w-12 h-12 bg-surface/90 backdrop-blur-sm rounded-full flex items-center justify-center text-on-surface shadow-[0px_4px_20px_rgba(44,62,80,0.05)] hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[24px]" data-icon="arrow_back">arrow_back</span>
+</button>
+<!-- Title & Meta Data -->
+<div class="absolute bottom-lg left-lg right-lg z-20 flex flex-col gap-sm">
+<div class="flex flex-wrap gap-sm mb-xs">
+<div class="px-3 py-1.5 bg-primary-container text-on-primary rounded-full flex items-center gap-1 shadow-sm backdrop-blur-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="timer">timer</span>
+<span class="font-label-md text-label-md">15분</span>
+</div>
+<div class="px-3 py-1.5 bg-surface/90 text-on-surface rounded-full flex items-center gap-1 shadow-sm backdrop-blur-md">
+<span class="material-symbols-outlined text-[18px] text-secondary-container" data-icon="restaurant" data-weight="fill">restaurant</span>
+<span class="font-label-md text-label-md">쉬움</span>
+</div>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-primary drop-shadow-lg">김치볶음밥</h1>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="px-lg lg:px-gutter py-xl flex flex-col gap-xl">
+<!-- Section 1: Ingredients -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">필요한 재료</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2인분 기준</span>
+</div>
+<!-- Highlight Alert -->
+<div class="bg-surface-container border border-primary-container/30 rounded-xl p-md flex items-start gap-md shadow-[0px_4px_20px_rgba(44,62,80,0.05)] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div>
+<span class="material-symbols-outlined text-primary-container mt-0.5 text-[24px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+<div class="flex flex-col gap-xs">
+<h3 class="font-label-md text-label-md text-on-surface">모든 재료가 냉장고에 있습니다!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">추가 장보기 없이 바로 요리를 시작할 수 있는 완벽한 상태입니다.</p>
+</div>
+</div>
+<!-- Bento Grid Checkboxes -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm mt-sm">
+<label class="flex items-center gap-md p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container hover:bg-surface-container-low transition-all shadow-[0px_4px_20px_rgba(44,62,80,0.05)]">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary-container focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface flex-1">잘 익은 김치</span>
+<span class="font-label-md text-label-md text-on-surface-variant">1 컵</span>
+</label>
+<label class="flex items-center gap-md p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container hover:bg-surface-container-low transition-all shadow-[0px_4px_20px_rgba(44,62,80,0.05)]">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary-container focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface flex-1">찬밥 (또는 즉석밥)</span>
+<span class="font-label-md text-label-md text-on-surface-variant">2 공기</span>
+</label>
+<label class="flex items-center gap-md p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container hover:bg-surface-container-low transition-all shadow-[0px_4px_20px_rgba(44,62,80,0.05)]">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary-container focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface flex-1">스팸 (또는 돼지고기)</span>
+<span class="font-label-md text-label-md text-on-surface-variant">100 g</span>
+</label>
+<label class="flex items-center gap-md p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container hover:bg-surface-container-low transition-all shadow-[0px_4px_20px_rgba(44,62,80,0.05)]">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary-container focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface flex-1">대파</span>
+<span class="font-label-md text-label-md text-on-surface-variant">1/2 대</span>
+</label>
+<label class="flex items-center gap-md p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container hover:bg-surface-container-low transition-all shadow-[0px_4px_20px_rgba(44,62,80,0.05)]">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary-container focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface flex-1">고추장</span>
+<span class="font-label-md text-label-md text-on-surface-variant">1/2 큰술</span>
+</label>
+<label class="flex items-center gap-md p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container hover:bg-surface-container-low transition-all shadow-[0px_4px_20px_rgba(44,62,80,0.05)]">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary-container focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface flex-1">참기름</span>
+<span class="font-label-md text-label-md text-on-surface-variant">1 큰술</span>
+</label>
+<label class="flex items-center gap-md p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container hover:bg-surface-container-low transition-all shadow-[0px_4px_20px_rgba(44,62,80,0.05)] md:col-span-2">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary-container focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface flex-1">계란 (고명용)</span>
+<span class="font-label-md text-label-md text-on-surface-variant">2 개</span>
+</label>
+</div>
+</section>
+<!-- Section 2: Cooking Steps -->
+<section class="flex flex-col gap-md">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">조리 방법</h2>
+<div class="flex flex-col gap-lg pl-3 border-l-2 border-surface-container-high ml-5">
+<!-- Step 1 -->
+<div class="relative pl-8">
+<div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md shadow-[0px_4px_20px_rgba(44,62,80,0.12)] ring-4 ring-surface-container-lowest">1</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-xs">재료 손질하기</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">김치와 대파는 송송 썰고, 스팸은 사방 1cm 크기로 깍둑썰기하여 준비합니다. 재료의 크기가 일정해야 식감이 좋습니다.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative pl-8">
+<div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md shadow-[0px_4px_20px_rgba(44,62,80,0.12)] ring-4 ring-surface-container-lowest">2</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-xs">파기름 내고 스팸 볶기</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">팬에 식용유를 두르고 중불에서 대파를 먼저 볶아 파기름을 냅니다. 파향이 올라오면 스팸을 넣고 노릇노릇해질 때까지 볶아줍니다.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative pl-8">
+<div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md shadow-[0px_4px_20px_rgba(44,62,80,0.12)] ring-4 ring-surface-container-lowest">3</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-xs">김치와 양념 추가하기</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">썰어둔 김치를 넣고 스팸과 함께 충분히 볶습니다. 김치가 투명해지기 시작하면 고추장을 넣고 타지 않게 잘 섞어줍니다.</p>
+</div>
+<!-- Step 4 -->
+<div class="relative pl-8">
+<div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md shadow-[0px_4px_20px_rgba(44,62,80,0.12)] ring-4 ring-surface-container-lowest">4</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-xs">밥 넣고 볶기</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">불을 약하게 줄이고 밥을 넣습니다. 주걱을 세워 밥알을 가르듯이 섞어준 뒤, 다시 불을 높여 수분을 날리듯 볶아줍니다. 마지막에 참기름을 두르고 불을 끕니다.</p>
+</div>
+<!-- Step 5 -->
+<div class="relative pl-8">
+<div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-label-md text-label-md ring-4 ring-surface-container-lowest">5</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-xs">마무리</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">그릇에 볶음밥을 담고 반숙으로 구운 계란 프라이를 올려 완성합니다.</p>
+</div>
+</div>
+</section>
+<!-- Section 3: Chef's Tips -->
+<section class="bg-surface-container-low rounded-xl p-lg border-l-4 border-secondary-container shadow-[0px_4px_20px_rgba(44,62,80,0.05)] mt-md relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-[120px]" data-icon="restaurant_menu">restaurant_menu</span>
+</div>
+<div class="relative z-10 flex flex-col gap-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-[28px]" data-icon="lightbulb" data-weight="fill">lightbulb</span> 
+                        셰프의 팁
+                    </h2>
+<ul class="list-disc pl-5 font-body-md text-body-md text-on-surface-variant flex flex-col gap-1 marker:text-secondary-container">
+<li>김치가 너무 시다면 설탕을 1/2 큰술 정도 넣어 신맛을 중화시켜주세요. 감칠맛이 살아납니다.</li>
+<li>밥은 갓 지은 밥보다는 식은 밥이나 찬밥을 사용해야 밥알이 뭉치지 않고 고슬고슬한 식감을 낼 수 있습니다.</li>
+<li>프라이팬 바닥에 밥을 넓게 펴서 살짝 눌어붙게 만들면 더욱 고소한 맛을 즐길 수 있습니다.</li>
+</ul>
+</div>
+</section>
+<!-- Bottom Actions -->
+<div class="flex flex-col sm:flex-row gap-md pt-lg border-t border-outline-variant mt-sm">
+<button class="flex-1 py-4 px-6 rounded-lg border-2 border-primary-container text-primary-container font-label-md text-label-md flex justify-center items-center gap-2 hover:bg-primary-container/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+                    공유하기
+                </button>
+<button class="flex-[2] py-4 px-6 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex justify-center items-center gap-2 shadow-[0px_4px_20px_rgba(44,62,80,0.12)] hover:bg-primary hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface">
+<span class="material-symbols-outlined" data-icon="bookmark" data-weight="fill">bookmark</span>
+                    내 레시피에 저장
+                </button>
+</div>
+</div>
+</main>
+</body></html>

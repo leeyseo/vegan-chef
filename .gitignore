@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+*.local
+.DS_Store
+npm-debug.log*
+
+# 로컬 전용 (공개 저장소에 불필요)
+.claude
+design-backup

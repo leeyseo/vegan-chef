@@ -1,0 +1,35 @@
+{
+  "name": "vegan-chef",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "냉장고 사진을 비건 셰프 AI가 분석해 동물성 재료 없이 만들 수 있는 식물성 레시피를 추천하는 웹 앱",
+  "scripts": {
+    "dev": "concurrently -n server,client -c green,cyan \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:client": "vite",
+    "dev:server": "node server/index.js",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.17.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.11",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.5.0",
+    "concurrently": "^9.0.1",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  }
+}

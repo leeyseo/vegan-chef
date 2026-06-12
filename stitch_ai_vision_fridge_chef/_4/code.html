@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fridge Chef - 추천 레시피</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#6c7b6d",
+                      "on-surface": "#161d17",
+                      "primary-fixed-dim": "#4ae183",
+                      "on-primary": "#ffffff",
+                      "background": "#f3fcf1",
+                      "on-tertiary-fixed-variant": "#793015",
+                      "tertiary-fixed-dim": "#ffb59d",
+                      "tertiary": "#98472a",
+                      "inverse-on-surface": "#ebf3e8",
+                      "primary-fixed": "#6bfe9c",
+                      "secondary-fixed-dim": "#ffb961",
+                      "on-tertiary-container": "#772e14",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#dce5da",
+                      "surface-variant": "#dce5da",
+                      "on-error-container": "#93000a",
+                      "primary": "#006d37",
+                      "secondary": "#865300",
+                      "on-background": "#161d17",
+                      "on-secondary-fixed": "#2b1700",
+                      "surface-container": "#e8f0e5",
+                      "inverse-surface": "#2b322b",
+                      "surface-container-low": "#eef6eb",
+                      "on-surface-variant": "#3d4a3e",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#005228",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffdbd0",
+                      "on-primary-container": "#005027",
+                      "on-primary-fixed": "#00210c",
+                      "surface-dim": "#d4dcd2",
+                      "primary-container": "#2ecc71",
+                      "surface-tint": "#006d37",
+                      "on-secondary-container": "#694000",
+                      "surface-bright": "#f3fcf1",
+                      "secondary-fixed": "#ffddb9",
+                      "secondary-container": "#fea520",
+                      "on-tertiary-fixed": "#390c00",
+                      "tertiary-container": "#ff9875",
+                      "surface": "#f3fcf1",
+                      "surface-container-high": "#e2ebe0",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#663e00",
+                      "outline-variant": "#bbcbbb",
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#4ae183"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "base": "4px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "container-max": "1200px",
+                      "gutter": "24px",
+                      "xl": "40px",
+                      "lg": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-xl": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+      </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 4px 20px rgba(44, 62, 80, 0.05);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(12, 1fr);
+            }
+            .bento-item-large {
+                grid-column: span 8;
+            }
+            .bento-item-small {
+                grid-column: span 4;
+            }
+        }
+        
+        .pulse-glow {
+            animation: pulse-green 2s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col pt-16">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/95 backdrop-blur-sm flex justify-between items-center px-lg h-16 border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">Fridge Chef</span>
+</div>
+<nav class="hidden md:flex gap-lg">
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">My Recipes</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Saved</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="hidden md:flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-md py-sm rounded-full hover:bg-primary/90 transition-colors">
+                Scan Fridge
+            </button>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="Chef profile" class="w-full h-full object-cover" data-alt="A close up portrait of a smiling young chef in a bright, modern kitchen setting. Warm, natural lighting highlights their features. The aesthetic is clean, professional, and inviting, with a color palette of soft whites and natural tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5kaYfngooNg7ptvMN8FT1JRHXQbyv7_muKofA7CYHk_LfDpoC4mNrehCx7ZGIPt2vIvaU6XN3pywK_cMnJmr5Eu6reJ2KW32zHSpyYQ2d3CcwWk-BaRPalhbxSE813crjMz0knK9vWWubSfPtRWrQ8tKu3ETsNOy-JMfZTeyOdH0WV3IeosnUlPV9TAkSL7HyQbQh5BSyoQB8XgqgGpnn1E-6pXTlpL6EJ5ovrLBHAvZ9HH6806TUJMbsZ5818pD8Qi1NTISd45gp"/>
+</div>
+<button class="md:hidden flex items-center justify-center p-sm text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-[1200px] mx-auto px-lg py-xl flex flex-col gap-xl">
+<!-- Header & Filters Section -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg hidden md:block text-on-surface">추천 레시피: 12개를 찾았습니다</h1>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:hidden text-on-surface">추천 레시피: 12개를 찾았습니다</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm">현재 냉장고 재료를 바탕으로 한 추천 요리입니다.</p>
+</div>
+<div class="flex flex-wrap gap-sm">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container rounded-full border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">sort</span>
+                    재료 적은 순
+                </button>
+<button class="flex items-center gap-xs px-md py-sm bg-surface rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+                    조리 시간
+                </button>
+<button class="flex items-center gap-xs px-md py-sm bg-surface rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                    필터
+                </button>
+</div>
+</section>
+<!-- Recipe Grid -->
+<section class="bento-grid">
+<!-- Card 1 (Priority) - Kimchi Fried Rice -->
+<article class="bento-item-large glass-card rounded-xl overflow-hidden flex flex-col md:flex-row relative group">
+<div class="absolute top-md right-md z-10 pulse-glow">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full font-label-sm text-label-sm font-bold flex items-center gap-xs shadow-md">
+<span class="material-symbols-outlined text-[14px]">bolt</span> 바로 가능
+                    </span>
+</div>
+<div class="w-full md:w-2/5 aspect-square md:aspect-auto h-64 md:h-full overflow-hidden relative">
+<img alt="Kimchi Fried Rice" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A top-down view of a steaming plate of Kimchi Fried Rice topped with a perfect sunny-side-up egg. The scene is styled like a modern culinary magazine shoot, with bright, high-key lighting and a pristine white marble background. The vibrant red of the kimchi contrasts beautifully with the lush greens of scallion garnish. The overall mood is appetizing, fresh, and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQXywdQLA7AI9mYMZLZ1DcvDk_oUb5H8k8Fa3PvazB6mnZv6_NBsCvGub5ePG87qq0KKB7h_VnzZJMwrb1C1nuMQ1HkRYFMbHw2SWgKyl5VbahLIZ2Pl4c9S4gQRtCqtiMv7ga7WOOlquZsJWvEdn2Uiw_kp7N2IG0q9tADUh3L1amEla7bRiQxJoOpDXSflIesBust_G4sr0nKj9D-GZWvQtwOyayCA9rlDJq5ffEH6u1RVPtpSGNsfTjzCLNLKyiBENxx3t00_E8"/>
+<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-md">
+<span class="bg-primary/90 text-on-primary px-sm py-xs rounded-full font-label-sm text-label-sm backdrop-blur-sm">100% 매칭</span>
+</div>
+</div>
+<div class="p-lg flex flex-col justify-between flex-grow">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm group-hover:text-primary transition-colors">김치볶음밥 (Kimchi Fried Rice)</h2>
+<div class="flex items-center gap-sm text-on-surface-variant font-body-md text-body-md mb-md">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">schedule</span> 15분</span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">local_fire_department</span> 초급</span>
+</div>
+<div class="space-y-sm">
+<p class="font-label-md text-label-md text-on-surface-variant">보유 재료:</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-sm py-xs bg-primary-container/20 text-primary-container border border-primary-container/30 rounded-full font-label-sm text-label-sm">Kimchi</span>
+<span class="px-sm py-xs bg-primary-container/20 text-primary-container border border-primary-container/30 rounded-full font-label-sm text-label-sm">Rice</span>
+<span class="px-sm py-xs bg-primary-container/20 text-primary-container border border-primary-container/30 rounded-full font-label-sm text-label-sm">Egg</span>
+<span class="px-sm py-xs bg-primary-container/20 text-primary-container border border-primary-container/30 rounded-full font-label-sm text-label-sm">Ham</span>
+</div>
+</div>
+</div>
+<button class="mt-md w-full bg-primary text-on-primary font-label-md text-label-md py-sm rounded-lg hover:bg-primary/90 transition-colors flex justify-center items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">skillet</span> 요리 시작하기
+                    </button>
+</div>
+</article>
+<!-- Card 2 - Doenjang-jjigae -->
+<article class="bento-item-small glass-card rounded-xl overflow-hidden flex flex-col relative group">
+<div class="w-full aspect-[4/3] overflow-hidden relative">
+<img alt="Doenjang-jjigae" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A rustic, bubbling Korean Doenjang-jjigae stew served in a traditional black earthenware pot (ttukbaegi). The stew is filled with tofu cubes, zucchini, and onions, surrounded by a subtle steam vapor. The setting is a clean, modern kitchen counter with soft, natural daylight illuminating the rich brown broth. The aesthetic balances traditional cuisine with a crisp, contemporary food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOrOQ5sbaqenjBorrP4GHqccQq5N8TR5MkIZJXGc-PALp0WqP3bm3GJHRzgg06omdRFO51DoVs0VZGi_Xm74XKuUmTD7GKa3UfQhLULC7Z-ehOiCaNseG-THrD83Inb1KSdUYDxlb5niyEgJ5eK5kIDbpf9VjXE9Zpu6YFdtMIPx_bqoR9U_xELviiaMez6E0qY7cU5t8ovT2uUuZ53yk3rdvKGAbPvZW5PcnIK_6zcNCrhvpSiqOFzz4t-ZVUULHa76OUnHzJ3xOq"/>
+<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-md">
+<span class="bg-surface-variant/90 text-on-surface-variant px-sm py-xs rounded-full font-label-sm text-label-sm backdrop-blur-sm">85% 매칭</span>
+</div>
+</div>
+<div class="p-md flex flex-col justify-between flex-grow">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface text-[20px] mb-xs group-hover:text-primary transition-colors line-clamp-1">된장찌개</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-md">(Doenjang-jjigae)</p>
+<div class="space-y-sm mb-md">
+<div class="flex flex-wrap gap-xs">
+<span class="px-sm py-xs bg-primary-container/20 text-primary-container border border-primary-container/30 rounded-full font-label-sm text-label-sm">Tofu</span>
+<span class="px-sm py-xs bg-primary-container/20 text-primary-container border border-primary-container/30 rounded-full font-label-sm text-label-sm">Onion</span>
+<span class="px-sm py-xs bg-primary-container/20 text-primary-container border border-primary-container/30 rounded-full font-label-sm text-label-sm">Zucchini</span>
+</div>
+<div class="flex flex-wrap gap-xs mt-xs pt-xs border-t border-outline-variant/30">
+<span class="px-sm py-xs bg-error-container/50 text-on-error-container border border-error-container rounded-full font-label-sm text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px]">add_shopping_cart</span> Clams 필요
+                                </span>
+</div>
+</div>
+</div>
+<button class="w-full bg-surface-container border border-outline-variant text-on-surface font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-high transition-colors">
+                        레시피 보기
+                    </button>
+</div>
+</article>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-lg mt-xl flex flex-col items-center gap-md border-t border-outline-variant bg-surface-container">
+<div class="font-headline-md text-headline-md font-bold text-on-surface">Fridge Chef</div>
+<div class="flex gap-md font-label-md text-label-md">
+<a class="text-on-surface-variant hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">About</a>
+<a class="text-on-surface-variant hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Github</a>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-80">© 2024 Fridge Chef. Powered by Claude Vision, React &amp; Express.</p>
+</footer>
+</body></html>

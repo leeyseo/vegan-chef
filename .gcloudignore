@@ -1,0 +1,12 @@
+# gcloud run deploy --source . 업로드에서 제외할 항목
+# (node_modules·dist는 컨테이너가 빌드, .env·키는 절대 업로드 금지)
+node_modules
+dist
+.git
+.gitignore
+.env
+*.log
+design
+design-backup
+.claude
+npm-debug.log*
