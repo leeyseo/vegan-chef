@@ -91,7 +91,6 @@ export function Scan() {
         ref={inputRef}
         type="file"
         accept="image/*"
-        capture="environment"
         hidden
         onChange={(e) => handleFile(e.target.files?.[0])}
       />
@@ -111,7 +110,7 @@ export function Scan() {
                 냉장고 사진 올리기
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant mt-xs">
-                냉장고 내부나 식재료를 촬영해 끌어다 놓거나 클릭하세요
+                사진을 찍거나 앨범에서 선택하세요 (PC는 끌어다 놓기도 가능)
               </p>
             </div>
           </button>
