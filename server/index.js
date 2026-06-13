@@ -373,14 +373,21 @@ app.post("/api/analyze/stream", rateLimit, async (req, res) => {
   res.setHeader("X-Accel-Buffering", "no");
   res.flushHeaders?.();
 
+  // 클라이언트가 실제로 끊겼는지 판정: res 'close'에서 응답이 정상 종료(writableEnded)가
+  // 아니면 중단으로 본다. req 'close'는 요청 바디 수신 직후에도 발생해 조기 종료를
+  // 유발하므로 사용하지 않는다.
+  let clientGone = false;
+  res.on("close", () => {
+    if (!res.writableEnded) clientGone = true;
+  });
+  res.on("error", () => {
+    clientGone = true;
+  });
+
   const send = (event, data) => {
+    if (clientGone || res.writableEnded) return;
     res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
   };
-
-  let aborted = false;
-  req.on("close", () => {
-    aborted = true;
-  });
 
   try {
     const stream = client.messages.stream({
@@ -460,7 +467,7 @@ app.post("/api/analyze/stream", rateLimit, async (req, res) => {
     // raw 이벤트를 for-await로 소비해야 토큰 델타가 실시간으로 들어온다.
     // (.on("text") + finalMessage() 조합은 델타가 중간에 흐르지 않았다.)
     for await (const ev of stream) {
-      if (aborted) break;
+      if (clientGone) break;
       if (ev.type === "content_block_delta" && ev.delta?.type === "text_delta") {
         onDelta(ev.delta.text);
       } else if (ev.type === "message_delta" && ev.delta?.stop_reason) {
