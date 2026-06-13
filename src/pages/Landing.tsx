@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Icon } from "../components/Icon";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { sampleImg } from "../lib/sampleImages";
+import { useAnalysis } from "../state/AnalysisContext";
 
 const STEPS = [
   {
@@ -56,8 +57,38 @@ const FEATURED = [
 
 export function Landing() {
   const navigate = useNavigate();
+  const { result, savedAt } = useAnalysis();
   return (
     <main className="flex-grow flex flex-col gap-xl pb-xl">
+      {/* 지난 분석 이어보기 (같은 기기에 저장된 결과가 있을 때) */}
+      {result && (
+        <div className="px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto w-full pt-md">
+          <button
+            onClick={() => navigate("/recipes")}
+            className="w-full flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-xl px-4 py-3 hover:brightness-[0.97] transition"
+          >
+            <Icon name="history" filled className="text-[22px]" />
+            <div className="text-left flex-1">
+              <p className="font-label-md text-label-md">
+                지난 분석 결과 이어보기 — 레시피 {result.recipes.length}개
+              </p>
+              {savedAt && (
+                <p className="font-caption text-caption opacity-80">
+                  {new Date(savedAt).toLocaleString("ko-KR", {
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}{" "}
+                  · 이 기기에 저장됨
+                </p>
+              )}
+            </div>
+            <Icon name="arrow_forward" className="text-[20px]" />
+          </button>
+        </div>
+      )}
+
       {/* Hero */}
       <section className="relative w-full px-margin-mobile md:px-margin-desktop pt-lg md:pt-xl max-w-[1280px] mx-auto overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
