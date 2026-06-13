@@ -45,7 +45,7 @@ export interface AnalyzeProgress {
  * onDone 또는 onError 중 정확히 하나가 호출된다.
  */
 export async function analyzeFridgeStream(
-  payload: { base64: string; mediaType: string },
+  payload: { base64: string; mediaType: string; mode?: "general" | "vegan" },
   handlers: {
     onProgress?: (p: AnalyzeProgress) => void;
     onDone: (result: AnalysisResult) => void;
@@ -58,6 +58,7 @@ export async function analyzeFridgeStream(
     body: JSON.stringify({
       imageBase64: payload.base64,
       mediaType: payload.mediaType,
+      mode: payload.mode ?? "general",
     }),
   });
 

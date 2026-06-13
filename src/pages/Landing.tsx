@@ -3,6 +3,7 @@ import { Icon } from "../components/Icon";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { sampleImg } from "../lib/sampleImages";
 import { useAnalysis } from "../state/AnalysisContext";
+import { useMode } from "../state/ModeContext";
 
 const STEPS = [
   {
@@ -14,8 +15,8 @@ const STEPS = [
   },
   {
     icon: "nutrition",
-    title: "02. Plant-Based Analysis",
-    body: "동물성 성분을 철저히 필터링하고, 사용 가능한 최적의 식물성 재료 조합을 분석합니다.",
+    title: "02. AI 재료 분석",
+    body: "냉장고 속 재료를 인식해, 지금 만들 수 있는 최적의 조합을 분석합니다.",
     variant: "primary" as const,
     chip: "bg-primary-fixed text-on-primary-fixed",
   },
@@ -58,6 +59,7 @@ const FEATURED = [
 export function Landing() {
   const navigate = useNavigate();
   const { result, savedAt } = useAnalysis();
+  const { isVegan } = useMode();
   return (
     <main className="flex-grow flex flex-col gap-xl pb-xl">
       {/* 지난 분석 이어보기 (같은 기기에 저장된 결과가 있을 때) */}
@@ -96,16 +98,26 @@ export function Landing() {
             <div className="inline-flex items-center gap-2 bg-surface-container-low px-sm py-xs rounded-full w-fit border border-surface-container-high">
               <Icon name="eco" className="text-primary text-[16px] animate-pulse" />
               <span className="font-caption text-caption text-on-surface-variant">
-                100% Plant-Based Intelligence
+                {isVegan ? "100% Plant-Based Intelligence" : "AI 냉장고 비전 레시피"}
               </span>
             </div>
             <h1 className="font-display-lg font-bold tracking-[-0.02em] text-[2rem] leading-[1.15] text-primary md:text-display-lg">
-              지속 가능한 미식, <br />
-              <span className="text-secondary">비건 셰프</span>와 함께
+              {isVegan ? (
+                <>
+                  지속 가능한 미식, <br />
+                  <span className="text-secondary">비건 셰프</span>와 함께
+                </>
+              ) : (
+                <>
+                  냉장고 사진 한 장으로 <br />
+                  시작하는 <span className="text-secondary">미식 생활</span>
+                </>
+              )}
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-md">
-              당신의 냉장고 속 평범한 식재료가 완벽한 비건 만찬으로 변신합니다.
-              환경을 생각하는 건강한 식탁을 지금 바로 시작하세요.
+              {isVegan
+                ? "당신의 냉장고 속 평범한 식재료가 완벽한 비건 만찬으로 변신합니다. 환경을 생각하는 건강한 식탁을 지금 바로 시작하세요."
+                : "냉장고 속 재료를 촬영하면 AI가 지금 만들 수 있는 요리를 찾아드립니다. 장보기 전에, 있는 재료부터 시작하세요."}
             </p>
             <div className="flex flex-col sm:flex-row gap-sm pt-sm">
               <button
@@ -113,7 +125,7 @@ export function Landing() {
                 className="flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md px-lg py-[16px] rounded-xl hover:bg-secondary transition-colors duration-300 shadow-[0_8px_24px_rgba(0,69,13,0.2)]"
               >
                 <Icon name="camera_alt" />
-                Scan Vegan Fridge
+                {isVegan ? "Scan Vegan Fridge" : "Scan Fridge"}
               </button>
               <button
                 onClick={() => navigate("/recipes")}
@@ -156,7 +168,7 @@ export function Landing() {
       >
         <div className="flex flex-col items-center text-center mb-lg">
           <h2 className="font-headline-lg text-headline-lg text-primary mb-sm">
-            스마트한 비건 라이프의 시작
+            {isVegan ? "스마트한 비건 라이프의 시작" : "스마트한 요리 생활의 시작"}
           </h2>
           <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl">
             단 세 단계로 완벽한 식물성 식단을 구성하세요.
@@ -206,7 +218,7 @@ export function Landing() {
         <div className="flex justify-between items-end mb-md">
           <div>
             <h2 className="font-headline-lg text-headline-lg text-primary">
-              Featured Vegan Recipes
+              {isVegan ? "Featured Vegan Recipes" : "Featured Recipes"}
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant mt-xs">
               오늘의 인기 레시피를 확인해보세요.

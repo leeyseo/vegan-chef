@@ -1,63 +1,16 @@
 import forms from "@tailwindcss/forms";
+import colors from "./tailwind-colors.js";
 
 /**
- * Vegan Chef 디자인 시스템 토큰.
- * design/stitch_ai_vision_fridge_chef 의 Stitch 설정을 그대로 옮긴 것.
+ * 색은 CSS 변수(--c-*)로 두 테마(일반/비건) 전환 — src/themes.css 참조.
+ * 폰트도 --font-display / --font-body 로 테마별 전환.
  */
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      colors: {
-        "error-container": "#ffdad6",
-        "surface-container-lowest": "#ffffff",
-        "primary-container": "#1b5e20",
-        "on-secondary": "#ffffff",
-        "primary-fixed": "#acf4a4",
-        "secondary-fixed": "#abf4ac",
-        background: "#f6fbf3",
-        "surface-container": "#ebefe8",
-        "surface-variant": "#dfe4dc",
-        "on-secondary-fixed": "#002107",
-        "on-surface": "#181d18",
-        "tertiary-fixed-dim": "#c2c9bb",
-        "inverse-on-surface": "#eef2ea",
-        "tertiary-fixed": "#dee5d6",
-        "tertiary-container": "#4d5449",
-        "outline-variant": "#c0c9bb",
-        primary: "#00450d",
-        "surface-bright": "#f6fbf3",
-        "secondary-container": "#abf4ac",
-        "on-primary-fixed": "#002203",
-        "on-error": "#ffffff",
-        "secondary-fixed-dim": "#90d792",
-        "on-primary-container": "#90d689",
-        "inverse-primary": "#91d78a",
-        outline: "#717a6d",
-        "on-background": "#181d18",
-        "on-tertiary-fixed": "#171d14",
-        "surface-dim": "#d7dbd4",
-        "on-secondary-container": "#2e7238",
-        "on-primary": "#ffffff",
-        "on-tertiary": "#ffffff",
-        "surface-tint": "#2a6b2c",
-        secondary: "#286b33",
-        "surface-container-highest": "#dfe4dc",
-        "surface-container-high": "#e5eae2",
-        "inverse-surface": "#2d322d",
-        "on-error-container": "#93000a",
-        "primary-fixed-dim": "#91d78a",
-        "on-tertiary-container": "#c1c8ba",
-        surface: "#f6fbf3",
-        "surface-container-low": "#f1f5ed",
-        "on-primary-fixed-variant": "#0c5216",
-        "on-tertiary-fixed-variant": "#42493e",
-        "on-surface-variant": "#41493e",
-        tertiary: "#363d33",
-        "on-secondary-fixed-variant": "#07521d",
-        error: "#ba1a1a",
-      },
+      colors,
       borderRadius: {
         DEFAULT: "0.25rem",
         lg: "0.5rem",
@@ -76,15 +29,15 @@ export default {
         base: "8px",
       },
       fontFamily: {
-        caption: ["Be Vietnam Pro", "sans-serif"],
-        "headline-md": ["Plus Jakarta Sans", "sans-serif"],
-        "body-lg": ["Be Vietnam Pro", "sans-serif"],
-        "display-lg": ["Plus Jakarta Sans", "sans-serif"],
-        "label-md": ["Be Vietnam Pro", "sans-serif"],
-        "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
-        "body-md": ["Be Vietnam Pro", "sans-serif"],
-        "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
-        sans: ["Be Vietnam Pro", "Pretendard", "system-ui", "sans-serif"],
+        caption: ["var(--font-body)"],
+        "headline-md": ["var(--font-display)"],
+        "body-lg": ["var(--font-body)"],
+        "display-lg": ["var(--font-display)"],
+        "label-md": ["var(--font-body)"],
+        "headline-lg-mobile": ["var(--font-display)"],
+        "body-md": ["var(--font-body)"],
+        "headline-lg": ["var(--font-display)"],
+        sans: ["var(--font-body)"],
       },
       fontSize: {
         caption: ["12px", { lineHeight: "16px", fontWeight: "400" }],

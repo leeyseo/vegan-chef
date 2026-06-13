@@ -5,6 +5,7 @@ import { processImage } from "../lib/image";
 import { analyzeFridgeStream } from "../lib/api";
 import type { AnalyzeStage } from "../lib/api";
 import { useAnalysis } from "../state/AnalysisContext";
+import { useMode } from "../state/ModeContext";
 import type { AnalysisResult, Freshness } from "../types";
 
 const BOX_PRESETS = [
@@ -33,14 +34,18 @@ const FRESH_STYLE: Record<Freshness, string> = {
   낮음: "bg-error-container text-on-error-container",
 };
 
-function stageLabel(stage: AnalyzeStage, recipesDone: number): string {
+function stageLabel(
+  stage: AnalyzeStage,
+  recipesDone: number,
+  isVegan: boolean
+): string {
   switch (stage) {
     case "ingredients":
       return "식재료 인식 중…";
     case "filter":
-      return "동물성 재료 필터링 중…";
+      return isVegan ? "동물성 재료 필터링 중…" : "재료 정리 중…";
     case "recipes":
-      return `비건 레시피 생성 중… ${recipesDone}/4`;
+      return `${isVegan ? "비건 " : ""}레시피 생성 중… ${recipesDone}/4`;
     case "finalizing":
       return "마무리 중…";
     default:
@@ -51,6 +56,7 @@ function stageLabel(stage: AnalyzeStage, recipesDone: number): string {
 export function Scan() {
   const navigate = useNavigate();
   const { setResult: storeResult, setPreview: storePreview } = useAnalysis();
+  const { mode, isVegan } = useMode();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [preview, setPreview] = useState<string | null>(null);
@@ -90,7 +96,7 @@ export function Scan() {
     setRecipesDone(0);
     setLiveIngredients([]);
 
-    await analyzeFridgeStream(payload, {
+    await analyzeFridgeStream({ ...payload, mode }, {
       onProgress: (p) => {
         setPercent(p.percent);
         setStage(p.stage);
@@ -171,7 +177,7 @@ export function Scan() {
                   <div className="flex items-center gap-2 mb-2">
                     <Icon name="sync" className="text-[18px] animate-spin" />
                     <span className="font-label-md text-label-md">
-                      {stageLabel(stage, recipesDone)}
+                      {stageLabel(stage, recipesDone, isVegan)}
                     </span>
                     <span className="ml-auto font-caption text-caption tabular-nums">
                       {percent}%
@@ -183,10 +189,12 @@ export function Scan() {
                       style={{ width: `${percent}%` }}
                     />
                   </div>
-                  <div className="flex items-center gap-1.5 mt-2 font-caption text-caption opacity-80">
-                    <Icon name="filter_alt" className="text-[14px]" />
-                    동물성 재료 필터링 활성화됨
-                  </div>
+                  {isVegan && (
+                    <div className="flex items-center gap-1.5 mt-2 font-caption text-caption opacity-80">
+                      <Icon name="filter_alt" className="text-[14px]" />
+                      동물성 재료 필터링 활성화됨
+                    </div>
+                  )}
                 </div>
               </>
             )}
@@ -209,7 +217,7 @@ export function Scan() {
                   className="flex-1 bg-primary text-on-primary font-label-md text-label-md py-3 rounded-xl hover:bg-secondary transition-colors flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(0,69,13,0.25)]"
                 >
                   <Icon name="document_scanner" />
-                  비건 재료 분석
+                  {isVegan ? "비건 재료 분석" : "재료 분석"}
                 </button>
                 <button
                   onClick={reset}
@@ -235,10 +243,14 @@ export function Scan() {
           </h3>
           <p className="font-body-md text-body-md text-on-surface-variant">
             {result
-              ? `냉장고에서 ${result.ingredients.length}개의 식물성 재료를 찾았습니다.`
+              ? `냉장고에서 ${result.ingredients.length}개의 ${
+                  isVegan ? "식물성 " : ""
+                }재료를 찾았습니다.`
               : loading
-              ? "실시간으로 비건 재료를 인식하고 있어요…"
-              : "사진을 분석하면 식별된 비건 재료가 여기에 표시됩니다."}
+              ? `실시간으로 ${isVegan ? "비건 " : ""}재료를 인식하고 있어요…`
+              : `사진을 분석하면 식별된 ${
+                  isVegan ? "비건 " : ""
+                }재료가 여기에 표시됩니다.`}
           </p>
         </div>
 
@@ -335,7 +347,7 @@ export function Scan() {
           className="w-full bg-primary text-on-primary font-label-md text-label-md py-4 rounded-xl hover:bg-secondary transition-colors flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-default"
         >
           <Icon name="restaurant_menu" />
-          Generate Vegan Recipes
+          {isVegan ? "Generate Vegan Recipes" : "Generate Recipes"}
         </button>
       </aside>
     </main>

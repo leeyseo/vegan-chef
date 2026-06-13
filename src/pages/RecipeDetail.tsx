@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Icon } from "../components/Icon";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useAnalysis } from "../state/AnalysisContext";
+import { useMode } from "../state/ModeContext";
 import { sampleImg } from "../lib/sampleImages";
 
 type Tab = "ingredients" | "instructions" | "eco";
@@ -17,6 +18,7 @@ export function RecipeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { result } = useAnalysis();
+  const { isVegan } = useMode();
   const [tab, setTab] = useState<Tab>("ingredients");
 
   const index = id ? parseInt(id.split("-")[0], 10) : NaN;
@@ -214,7 +216,7 @@ export function RecipeDetail() {
                     <div>
                       <p className="font-label-md text-label-md text-primary">Chef Maya</p>
                       <p className="font-caption text-caption text-on-surface-variant">
-                        Plant-based Specialist
+                        {isVegan ? "Plant-based Specialist" : "요리 전문가"}
                       </p>
                     </div>
                   </div>
@@ -264,7 +266,9 @@ export function RecipeDetail() {
                 -{recipe.eco.carbonSavedKg} kg
               </h4>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                같은 요리를 육류로 만들 때 대비 절감되는 탄소 배출량입니다.
+                {isVegan
+                  ? "같은 요리를 육류로 만들 때 대비 절감되는 탄소 배출량입니다."
+                  : "이 요리의 대략적인 탄소 발자국 추정치입니다."}
               </p>
             </div>
             <div className="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/20 shadow-sm text-center">
@@ -273,7 +277,9 @@ export function RecipeDetail() {
                 {recipe.eco.waterSavedL.toLocaleString()} L
               </h4>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                동물성 단백질 대신 식물성을 택해 아낀 물의 양입니다.
+                {isVegan
+                  ? "동물성 단백질 대신 식물성을 택해 아낀 물의 양입니다."
+                  : "조리에 쓰이는 대략적인 물 사용량 추정치입니다."}
               </p>
             </div>
             <div className="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/20 shadow-sm text-center">

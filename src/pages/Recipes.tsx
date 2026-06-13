@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../components/Icon";
 import { useAnalysis } from "../state/AnalysisContext";
+import { useMode } from "../state/ModeContext";
 import { recipeId } from "../lib/api";
 import type { Recipe } from "../types";
 
@@ -26,6 +27,7 @@ function matches(recipe: Recipe, key: FilterKey): boolean {
 /** 분석 결과가 없을 때 안내 */
 function EmptyState() {
   const navigate = useNavigate();
+  const { isVegan } = useMode();
   return (
     <main className="flex-grow w-full max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-xl flex items-center justify-center">
       <div className="glass-card rounded-[24px] p-lg md:p-xl text-center max-w-lg flex flex-col items-center gap-md">
@@ -36,8 +38,8 @@ function EmptyState() {
           아직 분석한 냉장고가 없어요
         </h1>
         <p className="font-body-md text-body-md text-on-surface-variant">
-          냉장고 사진을 스캔하면, 지금 가진 재료로 만들 수 있는 비건 레시피를
-          매칭해 드립니다.
+          냉장고 사진을 스캔하면, 지금 가진 재료로 만들 수 있는{" "}
+          {isVegan ? "비건 " : ""}레시피를 매칭해 드립니다.
         </p>
         <button
           onClick={() => navigate("/scan")}
@@ -53,6 +55,7 @@ function EmptyState() {
 
 export function Recipes() {
   const { result } = useAnalysis();
+  const { isVegan } = useMode();
   const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterKey>("all");
 
@@ -87,11 +90,11 @@ export function Recipes() {
         <h1 className="font-display-lg font-bold tracking-[-0.02em] text-[2rem] leading-[1.15] text-primary max-w-2xl md:text-display-lg">
           당신의 냉장고로 만드는
           <br />
-          최고의 비건 요리
+          최고의 {isVegan ? "비건 " : ""}요리
         </h1>
         <p className="font-body-lg text-body-lg text-outline max-w-xl">
-          지금 가진 재료로 만들 수 있는 {result.recipes.length}개의 비건 레시피를
-          찾았어요. 건강하고 지속 가능한 한 끼를 시작해보세요.
+          지금 가진 재료로 만들 수 있는 {result.recipes.length}개의{" "}
+          {isVegan ? "비건 " : ""}레시피를 찾았어요. 지금 바로 한 끼를 시작해보세요.
         </p>
         <div className="flex flex-wrap gap-sm mt-4">
           {FILTERS.map((f) => {
