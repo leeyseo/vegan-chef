@@ -152,10 +152,10 @@ export function Scan() {
             </div>
             <div>
               <p className="font-headline-md text-headline-md text-primary">
-                냉장고 사진 올리기
+                냉장고 사진 또는 영수증 올리기
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant mt-xs">
-                사진을 찍거나 앨범에서 선택하세요 (PC는 끌어다 놓기도 가능)
+                냉장고·식재료 사진이나 장보기 영수증을 찍거나 앨범에서 선택하세요
               </p>
             </div>
           </button>
