@@ -31,8 +31,11 @@ const client = new OpenAI({
 // 품질 우선: Gemini 2.5 Flash(무료 티어). 모델은 GEMINI_MODEL 로 교체 가능
 // (더 높은 품질: gemini-2.5-pro / 더 빠름: gemini-2.0-flash)
 const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-// 요청당 출력 토큰 상한.
-const MAX_OUTPUT_TOKENS = Number(process.env.MAX_OUTPUT_TOKENS ?? 8000);
+// 요청당 출력 토큰 상한. Gemini는 thinking(추론) 토큰도 이 한도를 함께 쓰므로
+// JSON이 잘리지 않게 넉넉히 둔다. (무료 티어라 실제 사용분만 영향)
+const MAX_OUTPUT_TOKENS = Number(process.env.MAX_OUTPUT_TOKENS ?? 16000);
+// 추론 깊이 — "none"|"low"|"medium"|"high". 낮출수록 빠르고 토큰 절약(첫 토큰도 빨리 나옴).
+const REASONING_EFFORT = process.env.REASONING_EFFORT || "low";
 
 /* ──────────────────────────────────────────────────────────────
    비용/남용 보호: IP별 속도 제한 + 전역 일일 상한
@@ -175,6 +178,7 @@ app.post("/api/analyze", rateLimit, async (req, res) => {
       model: MODEL,
       max_tokens: MAX_OUTPUT_TOKENS,
       temperature: 0.5,
+      reasoning_effort: REASONING_EFFORT,
       messages: buildMessages(imageBase64, mediaType),
     });
 
@@ -237,6 +241,7 @@ app.post("/api/analyze/stream", rateLimit, async (req, res) => {
       model: MODEL,
       max_tokens: MAX_OUTPUT_TOKENS,
       temperature: 0.5,
+      reasoning_effort: REASONING_EFFORT,
       stream: true,
       messages: buildMessages(imageBase64, mediaType),
     });
