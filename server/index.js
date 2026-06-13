@@ -35,7 +35,7 @@ const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 // JSON이 잘리지 않게 넉넉히 둔다. (무료 티어라 실제 사용분만 영향)
 const MAX_OUTPUT_TOKENS = Number(process.env.MAX_OUTPUT_TOKENS ?? 16000);
 // 추론 깊이 — "none"|"low"|"medium"|"high". 낮출수록 빠르고 토큰 절약(첫 토큰도 빨리 나옴).
-const REASONING_EFFORT = process.env.REASONING_EFFORT || "low";
+const REASONING_EFFORT = process.env.REASONING_EFFORT || "none";
 
 /* ──────────────────────────────────────────────────────────────
    비용/남용 보호: IP별 속도 제한 + 전역 일일 상한
