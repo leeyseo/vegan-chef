@@ -409,10 +409,10 @@ app.post("/api/analyze/stream", rateLimit, async (req, res) => {
     let full = "";
     let lastEmit = 0;
     let lastRecipes = -1;
+    let stopReason = null;
     const sentNames = new Set();
 
-    stream.on("text", (delta) => {
-      if (aborted) return;
+    const onDelta = (delta) => {
       full += delta;
 
       // 스키마 순서상 ingredients가 recipes보다 먼저 나온다.
@@ -455,28 +455,32 @@ app.post("/api/analyze/stream", rateLimit, async (req, res) => {
         lastEmit = now;
         send("progress", { percent, stage, newIngredients, recipesDone });
       }
-    });
+    };
 
-    const finalMsg = await stream.finalMessage();
+    // raw 이벤트를 for-await로 소비해야 토큰 델타가 실시간으로 들어온다.
+    // (.on("text") + finalMessage() 조합은 델타가 중간에 흐르지 않았다.)
+    for await (const ev of stream) {
+      if (aborted) break;
+      if (ev.type === "content_block_delta" && ev.delta?.type === "text_delta") {
+        onDelta(ev.delta.text);
+      } else if (ev.type === "message_delta" && ev.delta?.stop_reason) {
+        stopReason = ev.delta.stop_reason;
+      }
+    }
 
-    if (finalMsg.stop_reason === "refusal") {
+    if (stopReason === "refusal") {
       send("error", { error: "이미지를 분석할 수 없는 요청입니다." });
       return res.end();
     }
-    if (finalMsg.stop_reason === "max_tokens") {
+    if (stopReason === "max_tokens") {
       send("error", {
         error: "결과가 너무 길어 일부가 잘렸어요. 다시 시도해 주세요.",
       });
       return res.end();
     }
-    const textBlock = finalMsg.content.find((b) => b.type === "text");
-    if (!textBlock) {
-      send("error", { error: "모델 응답이 비어 있습니다." });
-      return res.end();
-    }
 
     // 코드펜스/잡텍스트가 섞여도 첫 '{'~마지막 '}' 구간만 파싱.
-    let jsonText = (textBlock.text || full).trim();
+    let jsonText = full.trim();
     const s = jsonText.indexOf("{");
     const e = jsonText.lastIndexOf("}");
     if (s >= 0 && e > s) jsonText = jsonText.slice(s, e + 1);
